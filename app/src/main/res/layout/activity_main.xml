@@ -10,6 +10,7 @@
         android:id="@+id/navigationBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@color/purple_200"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,6 +40,40 @@
             app:srcCompat="@drawable/settingsicon2"
             tools:ignore="RedundantDescriptionCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/toolBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/purple_200"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ToggleButton
+            android:id="@+id/toggleButtonEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_weight="1"
+            android:textColor="#455A64"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/butttonSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            android:text="Save"
+            tools:ignore="TextContrastCheck" />
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/subText"
         android:layout_width="wrap_content"
@@ -72,7 +107,7 @@
         app:layout_constraintTop_toBottomOf="@+id/subField" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/noteField"
         android:layout_width="277dp"
         android:layout_height="183dp"
         android:layout_marginStart="40dp"
@@ -92,9 +127,10 @@
         android:layout_marginTop="28dp"
         android:text="Priority:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+        app:layout_constraintTop_toBottomOf="@+id/noteField" />
 
     <RadioGroup
+        android:id="@+id/radPriority"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"

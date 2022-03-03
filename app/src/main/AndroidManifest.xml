@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NewProject">
         <activity
-            android:name=".listActivity"
+            android:name=".ListActivity"
             android:exported="false" />
         <activity
-            android:name=".settingsActivity"
+            android:name=".SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings"
             android:theme="@style/Theme.NewProject.NoActionBar" />
