@@ -32,6 +32,8 @@ public class NoteDataSource {
             initialValues.put("notemessage", n.getNoteMessage());
             initialValues.put("priority", n.getNotePriority());
 
+            didSucceed = database.insert("notes", null, initialValues) > 0;
+
         }
         catch  (Exception e) {
 

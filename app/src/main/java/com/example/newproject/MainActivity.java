@@ -32,6 +32,38 @@ public class MainActivity extends AppCompatActivity {
         currentNote = new Note();
         initTextChangedEvents();
         initPriorityChanged();
+        saveButton();
+
+    }
+
+    private void saveButton() {
+        Button saveButton = findViewById(R.id.butttonSave);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                boolean wasSuccessful;
+                NoteDataSource ds = new NoteDataSource(MainActivity.this);
+                try {
+                    ds.open();
+                    if (currentNote.getNoteID() == -1) {
+                        wasSuccessful = ds.insertNote(currentNote);
+                    }
+                    else {
+                        wasSuccessful = ds.updateNote(currentNote);
+                    }
+                    ds.close();
+                }
+                catch (Exception e) {
+                    wasSuccessful = false;
+                }
+                if (wasSuccessful) {
+                    ToggleButton editToggle = findViewById(R.id.toggleButtonEdit);
+                    editToggle.toggle();
+                    setForEditing(false);
+                }
+            }
+        });
 
     }
 
