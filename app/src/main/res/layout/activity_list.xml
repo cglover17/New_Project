@@ -20,6 +20,7 @@
             android:text="Delete"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -32,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
-            android:id="@+id/imageButtonList"
+            android:id="@+id/imageButtonNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -40,7 +41,7 @@
             tools:ignore="RedundantDescriptionCheck,SpeakableTextPresentCheck" />
 
         <ImageButton
-            android:id="@+id/imageButtonNote"
+            android:id="@+id/imageButtonList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

@@ -4,7 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,8 @@ import android.widget.ToggleButton;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Note currentNote;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,8 +25,85 @@ public class MainActivity extends AppCompatActivity {
 
         initListButton();
         initSettingsButton();
+        initNoteButton();
         initToggleButton();
+        setForEditing(false);
 
+        currentNote = new Note();
+        initTextChangedEvents();
+        initPriorityChanged();
+
+    }
+
+
+    private void initTextChangedEvents() {
+        final EditText etSubject = findViewById(R.id.subField);
+        etSubject.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                currentNote.setNoteSubject(etSubject.getText().toString());
+
+            }
+        });
+
+        final EditText etMessage = findViewById(R.id.noteField);
+        etMessage.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                currentNote.setNoteMessage(etMessage.getText().toString());
+
+            }
+        });
+    }
+
+    private void initPriorityChanged() {
+        String lowPriority = "Low";
+        String medPriority = "Medium";
+        String highPriority = "High";
+
+        RadioGroup rgPriority = findViewById(R.id.radPriority);
+        rgPriority.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                RadioButton rbLow = findViewById(R.id.radioLow);
+                RadioButton rbMedium = findViewById(R.id.radioMedium);
+
+                if (rbLow.isChecked()) {
+                    currentNote.setNotePriority(lowPriority);
+                }
+               else if (rbMedium.isChecked()) {
+                    currentNote.setNotePriority(medPriority);
+                }
+               else {
+                   currentNote.setNotePriority(highPriority);
+                }
+            }
+        });
+    }
+
+    private void initNoteButton() {
+        ImageButton ibNote = findViewById(R.id.imageButtonNote);
+        ibNote.setEnabled(false);
     }
 
     private void initListButton() {
@@ -33,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
                 //reference created for current activity and which activity to start)
                 Intent intent = new Intent(MainActivity.this, ListActivity.class);
                 //intent flag set to alert the operating system to not make multiple copies of same activity
-
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -63,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
 
                 setForEditing(editToggle.isChecked());
 
-
             }
         });
     }
@@ -72,21 +150,23 @@ public class MainActivity extends AppCompatActivity {
 
        EditText editSubject = findViewById(R.id.subField);
        EditText editNote = findViewById(R.id.noteField);
-       RadioGroup radioGroup = findViewById(R.id.radPriority);
+       RadioButton radioLow = findViewById(R.id.radioLow);
+       RadioButton radioMedium = findViewById(R.id.radioMedium);
+       RadioButton radioHigh = findViewById(R.id.radioHigh);
        Button buttonSave = findViewById(R.id.butttonSave);
 
 
        buttonSave.setEnabled(enabled);
        editNote.setEnabled(enabled);
-       radioGroup.setEnabled(enabled);
+       radioLow.setEnabled(enabled);
+       radioMedium.setEnabled(enabled);
+       radioHigh.setEnabled(enabled);
+       editSubject.setEnabled(enabled);
 
         if (enabled) {
             editSubject.requestFocus();
         }
 
     }
-
-
-
 
 }
