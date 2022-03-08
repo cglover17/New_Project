@@ -28,18 +28,18 @@ public class NoteAdapter extends RecyclerView.Adapter{
         public ContactViewHolder(@NonNull View itemView){
 
             super(itemView);
-            textSubject = itemView.findViewById(R.id.textName);
-          //  textLowPriority= itemView.findViewById(R.id.textlowPriority1);
-          //  textMediumPriority= itemView.findViewById(R.id.textMediumPriority);
-          //  textHighPriority= itemView.findViewById(R.id.textHighPriority);
-         //   deleteButton= itemView.findViewById(R.id.deleteButton1);
+            textSubject = itemView.findViewById(R.id.textSubject);
+            textLowPriority= itemView.findViewById(R.id.textLow);
+            textMediumPriority= itemView.findViewById(R.id.textMed);
+            textHighPriority= itemView.findViewById(R.id.textHigh);
+            deleteButton= itemView.findViewById(R.id.deleteButton);
             itemView.setTag(this);
             itemView.setOnClickListener(mOnItemClickListener);
         }
         public TextView getTextName(){
             return textSubject;
         }
-    /*    public TextView getTextLow(){
+        public TextView getTextLow(){
             return textLowPriority;
         }
         public TextView getTextMed(){
@@ -50,7 +50,7 @@ public class NoteAdapter extends RecyclerView.Adapter{
         }
         public Button getDeleteButton(){
             return deleteButton;
-        }*/
+        }
     }
 
     public NoteAdapter (ArrayList<Note> arrayList) {
@@ -64,7 +64,7 @@ public class NoteAdapter extends RecyclerView.Adapter{
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item2,parent,false);
         return new ContactViewHolder(v);
     }
 
@@ -72,15 +72,22 @@ public class NoteAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
     ContactViewHolder cvh = (ContactViewHolder) holder;
     cvh.getTextName().setText(noteData.get(position).getNoteSubject());
-   /* if (isLow) {
+        if (isLow) {
         cvh.getTextLow().setVisibility(View.VISIBLE);
-    }
-    else if (isMedium) {
-        cvh.getTextMed().setVisibility(View.VISIBLE);
-    }
-    else {
-        cvh.getTextHigh().setVisibility(View.VISIBLE);
-    }*/
+      //  cvh.getTextMed().setVisibility(View.INVISIBLE);
+      //  cvh.getTextHigh().setVisibility(View.INVISIBLE);
+
+        }
+        else if (isMedium) {
+            //cvh.getTextLow().setVisibility(View.INVISIBLE);
+            cvh.getTextMed().setVisibility(View.VISIBLE);
+           // cvh.getTextHigh().setVisibility(View.INVISIBLE);
+     }
+        else {
+
+          //  cvh.getTextLow().setVisibility(View.INVISIBLE);
+         //   cvh.getTextMed().setVisibility(View.INVISIBLE);
+            cvh.getTextHigh().setVisibility(View.VISIBLE);     }
 
     }
 
@@ -94,7 +101,7 @@ public class NoteAdapter extends RecyclerView.Adapter{
 
     @Override
     public int getItemCount() {
-        return 0;
+        return noteData.size();
     }
 
 }

@@ -124,13 +124,13 @@ public class MainActivity extends AppCompatActivity {
 
                 if (rbLow.isChecked()) {
                     currentNote.setNotePriority(lowPriority);
-                   // Boolean status = rbLow.isChecked();
-                   // noteAdapter.setPriority3(status);
+                    Boolean status = rbLow.isChecked();
+                    noteAdapter.setPriority3(status);
                 }
                else if (rbMedium.isChecked()) {
                     currentNote.setNotePriority(medPriority);
-                  //  Boolean status = rbLow.isChecked();
-                 //   noteAdapter.setPriority2(status);
+                    Boolean status = rbMedium.isChecked();
+                    noteAdapter.setPriority2(status);
                 }
                else {
                    currentNote.setNotePriority(highPriority);

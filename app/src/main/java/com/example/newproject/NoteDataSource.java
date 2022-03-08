@@ -39,6 +39,8 @@ public class NoteDataSource {
                 newNote.setNoteSubject(cursor.getString(1));
                 newNote.setNoteMessage(cursor.getString(2));
                 newNote.setNotePriority(cursor.getString(3));
+                notes.add(newNote);
+                cursor.moveToNext();
 
             }
             cursor.close();
