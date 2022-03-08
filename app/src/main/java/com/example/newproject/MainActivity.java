@@ -17,6 +17,7 @@ import android.widget.ToggleButton;
 public class MainActivity extends AppCompatActivity {
 
     private Note currentNote;
+    private NoteAdapter noteAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,11 +121,16 @@ public class MainActivity extends AppCompatActivity {
                 RadioButton rbLow = findViewById(R.id.radioLow);
                 RadioButton rbMedium = findViewById(R.id.radioMedium);
 
+
                 if (rbLow.isChecked()) {
                     currentNote.setNotePriority(lowPriority);
+                   // Boolean status = rbLow.isChecked();
+                   // noteAdapter.setPriority3(status);
                 }
                else if (rbMedium.isChecked()) {
                     currentNote.setNotePriority(medPriority);
+                  //  Boolean status = rbLow.isChecked();
+                 //   noteAdapter.setPriority2(status);
                 }
                else {
                    currentNote.setNotePriority(highPriority);

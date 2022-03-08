@@ -2,9 +2,11 @@ package com.example.newproject;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class NoteDataSource {
 
@@ -21,6 +23,30 @@ public class NoteDataSource {
 
     public void close() {
         dbHelper.close();
+    }
+
+    public ArrayList<Note> getNotes() {
+        ArrayList<Note> notes = new ArrayList<Note>();
+        try {
+            String query = "SELECT * FROM notes";
+            Cursor cursor = database.rawQuery(query,null);
+
+            Note newNote;
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                newNote = new Note();
+                newNote.setNoteID(cursor.getInt(0));
+                newNote.setNoteSubject(cursor.getString(1));
+                newNote.setNoteMessage(cursor.getString(2));
+                newNote.setNotePriority(cursor.getString(3));
+
+            }
+            cursor.close();
+        }
+        catch (Exception e) {
+            notes = new ArrayList<Note>();
+        }
+        return notes;
     }
 
     public boolean insertNote (Note n) {
