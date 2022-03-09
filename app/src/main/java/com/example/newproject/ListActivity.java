@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -38,13 +39,18 @@ public class ListActivity extends AppCompatActivity {
         initSettingsButton();
         initNoteButton();
 
+        String sortBy = getSharedPreferences("NoteAppPreferences",
+                Context.MODE_PRIVATE).getString("sortfield", "notesubject");
+        String sortOrder = getSharedPreferences("NoteAppPreferences",
+                Context.MODE_PRIVATE).getString("sortorder", "ASC");
+
         NoteDataSource ds = new NoteDataSource(this);
         //ArrayList<Note> notes;
 
         try {
 
             ds.open();
-            notes = ds.getNotes();
+            notes = ds.getNotes(sortBy, sortOrder);
             ds.close();
             RecyclerView noteList = findViewById(R.id.rvNotes);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);

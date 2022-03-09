@@ -17,6 +17,8 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
 
         editSubject.setText(currentNote.getNoteSubject());
         editMessage.setText(currentNote.getNoteMessage());
-
         if (currentNote.getNotePriority().equalsIgnoreCase("Low")) {
             radLow.setChecked(true);
         }
@@ -93,15 +94,18 @@ public class MainActivity extends AppCompatActivity {
                     ds.open();
                     if (currentNote.getNoteID() == -1) {
 
-                        Long datetime = System.currentTimeMillis();
-                        Timestamp timestamp = new Timestamp(datetime);
-                        currentNote.setTimestamp(timestamp.toString());
-                        wasSuccessful = ds.insertNote(currentNote);
+                    long millis = System.currentTimeMillis();
+                    Timestamp ts = new Timestamp(millis);
+                    currentNote.setTimestamp(ts);
+                    wasSuccessful = ds.insertNote(currentNote);
 
+                    if (wasSuccessful) {
+                        int newId = ds.getLastContactID();
+                        currentNote.setNoteID(newId);
+                    }
                     }
                     else {
                         wasSuccessful = ds.updateNote(currentNote);
-
                     }
                     ds.close();
                 }

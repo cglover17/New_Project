@@ -8,7 +8,7 @@ import android.util.Log;
 public class NoteDBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "noteapp.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     private static final String CREATE_TABLE_CONTACT =
             "create table notes (_id integer primary key autoincrement, "
