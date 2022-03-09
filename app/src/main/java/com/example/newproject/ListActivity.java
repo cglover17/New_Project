@@ -9,13 +9,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
+    NoteAdapter noteAdapter;
 
     ArrayList<Note> notes;
 
@@ -39,6 +41,7 @@ public class ListActivity extends AppCompatActivity {
         initListButton();
         initSettingsButton();
         initNoteButton();
+        initDeleteSwitch();
 
         String sortBy = getSharedPreferences("NoteAppPreferences",
                 Context.MODE_PRIVATE).getString("sortfield", "notesubject");
@@ -56,7 +59,7 @@ public class ListActivity extends AppCompatActivity {
             RecyclerView noteList = findViewById(R.id.rvNotes);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
             noteList.setLayoutManager(layoutManager);
-            NoteAdapter noteAdapter = new NoteAdapter(notes);
+            NoteAdapter noteAdapter = new NoteAdapter(notes, this);
             noteList.setAdapter(noteAdapter);
             noteAdapter.setOnItemClickListener(onItemClickListener);
         } catch (Exception e) {
@@ -98,7 +101,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     private void initAddSubjectButton() {
-        Button newSubject = findViewById(R.id.newButton);
+        Button newSubject = findViewById(R.id.deleteButton);
         newSubject.setOnClickListener(new View.OnClickListener() {
             public void onClick (View v){
                 Intent intent = new Intent(ListActivity.this, MainActivity.class);
@@ -106,4 +109,16 @@ public class ListActivity extends AppCompatActivity {
             }
         });
     }
+    private void initDeleteSwitch(){
+        Switch s = findViewById(R.id.toggleButton);
+        s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                Boolean status = compoundButton.isChecked();
+                noteAdapter.setDelete(status);;
+                noteAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
 }
