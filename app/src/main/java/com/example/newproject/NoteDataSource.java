@@ -60,8 +60,6 @@ public class NoteDataSource {
         return note;
     }
 
-
-
     public ArrayList<Note> getNotes(String sortField, String sortOrder) {
         ArrayList<Note> notes = new ArrayList<Note>();
         try {
@@ -127,10 +125,10 @@ public class NoteDataSource {
         }
         return didSucceed;
     }
-    public boolean deleteSubject(int subjectId){
+    public boolean deleteSubject(int noteId){
         boolean didDelete = false;
         try{
-            didDelete = database.delete("contact", "_id=" + subjectId, null) > 0;
+            didDelete = database.delete("notes", "_id=" + noteId, null) > 0;
         }
         catch (Exception e){
         }

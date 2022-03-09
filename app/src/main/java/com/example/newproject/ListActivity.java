@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 public class ListActivity extends AppCompatActivity {
     NoteAdapter noteAdapter;
-
     ArrayList<Note> notes;
+    RecyclerView noteList;
 
     private final View.OnClickListener onItemClickListener = new View.OnClickListener() {
         @Override
@@ -43,23 +43,25 @@ public class ListActivity extends AppCompatActivity {
         initNoteButton();
         initDeleteSwitch();
 
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+
         String sortBy = getSharedPreferences("NoteAppPreferences",
                 Context.MODE_PRIVATE).getString("sortfield", "notesubject");
         String sortOrder = getSharedPreferences("NoteAppPreferences",
                 Context.MODE_PRIVATE).getString("sortorder", "ASC");
-
         NoteDataSource ds = new NoteDataSource(this);
-        //ArrayList<Note> notes;
-
         try {
 
             ds.open();
             notes = ds.getNotes(sortBy, sortOrder);
             ds.close();
-            RecyclerView noteList = findViewById(R.id.rvNotes);
+            noteList = findViewById(R.id.rvNotes);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
             noteList.setLayoutManager(layoutManager);
-            NoteAdapter noteAdapter = new NoteAdapter(notes, this);
+            noteAdapter = new NoteAdapter(notes, this);
             noteList.setAdapter(noteAdapter);
             noteAdapter.setOnItemClickListener(onItemClickListener);
         } catch (Exception e) {
@@ -101,7 +103,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     private void initAddSubjectButton() {
-        Button newSubject = findViewById(R.id.deleteButton);
+        Button newSubject = findViewById(R.id.addButton);
         newSubject.setOnClickListener(new View.OnClickListener() {
             public void onClick (View v){
                 Intent intent = new Intent(ListActivity.this, MainActivity.class);
@@ -115,7 +117,7 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 Boolean status = compoundButton.isChecked();
-                noteAdapter.setDelete(status);;
+                noteAdapter.setDelete(status);
                 noteAdapter.notifyDataSetChanged();
             }
         });
