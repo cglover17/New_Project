@@ -16,6 +16,8 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.sql.Timestamp;
+
 public class MainActivity extends AppCompatActivity {
 
     private Note currentNote;
@@ -79,9 +81,13 @@ public class MainActivity extends AppCompatActivity {
                     ds.open();
                     if (currentNote.getNoteID() == -1) {
                         wasSuccessful = ds.insertNote(currentNote);
+                        Long datetime = System.currentTimeMillis();
+                        Timestamp timestamp = new Timestamp(datetime);
+                        currentNote.setTimestamp(timestamp);
                     }
                     else {
                         wasSuccessful = ds.updateNote(currentNote);
+
                     }
                     ds.close();
                 }

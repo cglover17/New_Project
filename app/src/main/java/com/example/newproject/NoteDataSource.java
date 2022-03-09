@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class NoteDataSource {
@@ -36,7 +37,7 @@ public class NoteDataSource {
             note.setNoteSubject(cursor.getString(1));
             note.setNoteMessage(cursor.getString(2));
             note.setNotePriority(cursor.getString(3));
-
+           note.setTimestamp(Timestamp.valueOf(cursor.getString(4)));
             cursor.close();
 
         }
@@ -59,7 +60,7 @@ public class NoteDataSource {
                 newNote.setNoteSubject(cursor.getString(1));
                 newNote.setNoteMessage(cursor.getString(2));
                 newNote.setNotePriority(cursor.getString(3));
-
+                newNote.setTimestamp(Timestamp.valueOf(cursor.getString(4)));
                 notes.add(newNote);
                 cursor.moveToNext();
 
@@ -80,7 +81,7 @@ public class NoteDataSource {
             initialValues.put("notesubject", n.getNoteSubject());
             initialValues.put("notemessage", n.getNoteMessage());
             initialValues.put("priority", n.getNotePriority());
-
+initialValues.put("time", n.getTimestamp());
             didSucceed = database.insert("notes", null, initialValues) > 0;
 
         }
