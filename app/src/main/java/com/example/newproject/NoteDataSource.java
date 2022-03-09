@@ -104,7 +104,7 @@ public class NoteDataSource {
             updateValues.put("priority", n.getNotePriority());
             updateValues.put("time", n.getTimestamp().toString());
 
-            didSucceed = database.update("notes", updateValues, "_id" + rowId,
+            didSucceed = database.update("notes", updateValues, "_id="  + rowId,
                     null) > 0;
         }
         catch (Exception e) {
@@ -114,7 +114,7 @@ public class NoteDataSource {
     public boolean deleteSubject(int subjectId){
         boolean didDelete = false;
         try{
-            didDelete = database.delete("contact", "_id=" + subjectId, null) > 0;
+            didDelete = database.delete("notes", "_id=" + subjectId, null) > 0;
         }
         catch (Exception e){
         }
