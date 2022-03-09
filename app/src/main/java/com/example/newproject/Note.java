@@ -2,6 +2,7 @@ package com.example.newproject;
 
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.Calendar;
 
 public class Note {
 
@@ -9,7 +10,7 @@ public class Note {
     private String noteSubject;
     private String noteMessage;
     private String notePriority;
-    private String timestamp;
+    private Timestamp timestamp;
 
 
 
@@ -50,9 +51,9 @@ public class Note {
         this.notePriority = notePriority;
     }
 
-    public String getTimestamp(){ return timestamp;}
+    public Timestamp getTimestamp(){ return timestamp;}
 
-    public void setTimestamp(String timestamp){this.timestamp=timestamp;}
+    public void setTimestamp(Timestamp timestamp){this.timestamp=timestamp;}
 }
 
 

@@ -26,6 +26,22 @@ public class NoteDataSource {
         dbHelper.close();
     }
 
+    public int getLastContactID() {
+        int lastId;
+        try {
+            String query = "Select MAX(_id) from notes";
+            Cursor cursor = database.rawQuery(query,null);
+
+            cursor.moveToFirst();
+            lastId = cursor.getInt(0);
+            cursor.close();
+        }
+        catch (Exception e) {
+            lastId = -1;
+        }
+        return lastId;
+    }
+
 
     public Note getSpecificNote(int noteId){
         Note note = new Note();
@@ -37,7 +53,7 @@ public class NoteDataSource {
             note.setNoteSubject(cursor.getString(1));
             note.setNoteMessage(cursor.getString(2));
             note.setNotePriority(cursor.getString(3));
-            note.setTimestamp(cursor.getString(4));
+            note.setTimestamp(Timestamp.valueOf(cursor.getString(4)));
             cursor.close();
 
         }
@@ -46,10 +62,10 @@ public class NoteDataSource {
 
 
 
-    public ArrayList<Note> getNotes() {
+    public ArrayList<Note> getNotes(String sortField, String sortOrder) {
         ArrayList<Note> notes = new ArrayList<Note>();
         try {
-            String query = "SELECT * FROM notes";
+            String query = "SELECT * FROM notes ORDER BY " + sortField + " " + sortOrder;
             Cursor cursor = database.rawQuery(query,null);
 
             Note newNote;
@@ -60,7 +76,7 @@ public class NoteDataSource {
                 newNote.setNoteSubject(cursor.getString(1));
                 newNote.setNoteMessage(cursor.getString(2));
                 newNote.setNotePriority(cursor.getString(3));
-                newNote.setTimestamp(cursor.getString(4));
+                newNote.setTimestamp(Timestamp.valueOf(cursor.getString(4)));
 
                 notes.add(newNote);
                 cursor.moveToNext();
@@ -102,9 +118,9 @@ public class NoteDataSource {
             updateValues.put("notesubject", n.getNoteSubject());
             updateValues.put("notemessage", n.getNoteMessage());
             updateValues.put("priority", n.getNotePriority());
-            updateValues.put("time", n.getTimestamp().toString());
+          //  updateValues.put("time", n.getTimestamp().toString());
 
-            didSucceed = database.update("notes", updateValues, "_id="  + rowId,
+            didSucceed = database.update("notes", updateValues, "_id=" + rowId,
                     null) > 0;
         }
         catch (Exception e) {
@@ -114,7 +130,7 @@ public class NoteDataSource {
     public boolean deleteSubject(int subjectId){
         boolean didDelete = false;
         try{
-            didDelete = database.delete("notes", "_id=" + subjectId, null) > 0;
+            didDelete = database.delete("contact", "_id=" + subjectId, null) > 0;
         }
         catch (Exception e){
         }

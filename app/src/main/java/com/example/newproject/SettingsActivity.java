@@ -27,7 +27,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void initSettings() {
         String sortBy = getSharedPreferences("NoteAppPreferences",
-                Context.MODE_PRIVATE).getString("sortfield", "subject");
+                Context.MODE_PRIVATE).getString("sortfield", "notesubject");
         String sortOrder = getSharedPreferences("NoteAppPreferences",
                 Context.MODE_PRIVATE).getString("sortorder", "ASC");
 
@@ -35,10 +35,10 @@ public class SettingsActivity extends AppCompatActivity {
         RadioButton rbPriority = findViewById(R.id.radPriority);
         RadioButton rbSubject = findViewById(R.id.radSubject);
 
-        if (sortBy.equalsIgnoreCase("subject")) {
+        if (sortBy.equalsIgnoreCase("notesubject")) {
             rbSubject.setChecked(true);
         }
-        else if (sortBy.equalsIgnoreCase("date")) {
+        else if (sortBy.equalsIgnoreCase("time")) {
             rbDate.setChecked(true);
         }
         else {
@@ -47,6 +47,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         RadioButton rbAscending = findViewById(R.id.radAscending);
         RadioButton rbDescending = findViewById(R.id.radDescending);
+
         if (sortOrder.equalsIgnoreCase("ASC")) {
             rbAscending.setChecked(true);
         }
@@ -66,12 +67,12 @@ public class SettingsActivity extends AppCompatActivity {
                 if (rbSubject.isChecked()) {
                     getSharedPreferences("NoteAppPreferences",
                             Context.MODE_PRIVATE).edit()
-                            .putString("sortfield", "subject").apply();
+                            .putString("sortfield", "notesubject").apply();
                 }
                 else if (rbDate.isChecked()) {
                     getSharedPreferences("NoteAppPreferences",
                             Context.MODE_PRIVATE).edit()
-                            .putString("sortfield", "date").apply();
+                            .putString("sortfield", "time").apply();
                 }
                 else {
                     getSharedPreferences("NoteAppPreferences",
