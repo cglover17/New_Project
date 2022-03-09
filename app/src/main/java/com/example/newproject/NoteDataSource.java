@@ -111,4 +111,13 @@ public class NoteDataSource {
         }
         return didSucceed;
     }
+    public boolean deleteSubject(int subjectId){
+        boolean didDelete = false;
+        try{
+            didDelete = database.delete("contact", "_id=" + subjectId, null) > 0;
+        }
+        catch (Exception e){
+        }
+        return didDelete;
+    }
 }

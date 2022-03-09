@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -33,7 +34,7 @@ public class ListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-
+        initAddSubjectButton();
         initListButton();
         initSettingsButton();
         initNoteButton();
@@ -52,8 +53,7 @@ public class ListActivity extends AppCompatActivity {
             NoteAdapter noteAdapter = new NoteAdapter(notes);
             noteList.setAdapter(noteAdapter);
             noteAdapter.setOnItemClickListener(onItemClickListener);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Toast.makeText(this, "Error retrieving contacts", Toast.LENGTH_LONG).show();
         }
     }
@@ -86,6 +86,16 @@ public class ListActivity extends AppCompatActivity {
                 //intent flag set to alert the operating system to not make multiple copies of same activity
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void initAddSubjectButton() {
+        Button newSubject = findViewById(R.id.newButton);
+        newSubject.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v){
+                Intent intent = new Intent(ListActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
