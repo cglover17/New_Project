@@ -37,7 +37,7 @@ public class NoteDataSource {
             note.setNoteSubject(cursor.getString(1));
             note.setNoteMessage(cursor.getString(2));
             note.setNotePriority(cursor.getString(3));
-           note.setTimestamp(Timestamp.valueOf(cursor.getString(4)));
+            note.setTimestamp(cursor.getString(4));
             cursor.close();
 
         }
@@ -60,7 +60,8 @@ public class NoteDataSource {
                 newNote.setNoteSubject(cursor.getString(1));
                 newNote.setNoteMessage(cursor.getString(2));
                 newNote.setNotePriority(cursor.getString(3));
-                newNote.setTimestamp(Timestamp.valueOf(cursor.getString(4)));
+                newNote.setTimestamp(cursor.getString(4));
+
                 notes.add(newNote);
                 cursor.moveToNext();
 
@@ -81,7 +82,7 @@ public class NoteDataSource {
             initialValues.put("notesubject", n.getNoteSubject());
             initialValues.put("notemessage", n.getNoteMessage());
             initialValues.put("priority", n.getNotePriority());
-initialValues.put("time", n.getTimestamp());
+            initialValues.put("time", n.getTimestamp().toString());
             didSucceed = database.insert("notes", null, initialValues) > 0;
 
         }
@@ -101,6 +102,7 @@ initialValues.put("time", n.getTimestamp());
             updateValues.put("notesubject", n.getNoteSubject());
             updateValues.put("notemessage", n.getNoteMessage());
             updateValues.put("priority", n.getNotePriority());
+            updateValues.put("time", n.getTimestamp().toString());
 
             didSucceed = database.update("notes", updateValues, "_id" + rowId,
                     null) > 0;

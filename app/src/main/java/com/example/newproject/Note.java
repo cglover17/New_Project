@@ -1,5 +1,6 @@
 package com.example.newproject;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 
 public class Note {
@@ -8,7 +9,7 @@ public class Note {
     private String noteSubject;
     private String noteMessage;
     private String notePriority;
-    private Timestamp timestamp;
+    private String timestamp;
 
 
 
@@ -49,9 +50,9 @@ public class Note {
         this.notePriority = notePriority;
     }
 
-    public Timestamp getTimestamp(){ return timestamp;}
+    public String getTimestamp(){ return timestamp;}
 
-    public void setTimestamp(Timestamp timestamp){this.timestamp=timestamp;}
+    public void setTimestamp(String timestamp){this.timestamp=timestamp;}
 }
 
 

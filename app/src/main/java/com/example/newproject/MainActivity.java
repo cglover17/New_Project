@@ -62,11 +62,23 @@ public class MainActivity extends AppCompatActivity {
 
         EditText editSubject = findViewById(R.id.subField);
         EditText editMessage = findViewById(R.id.noteField);
+        RadioButton radLow = findViewById(R.id.radioLow);
+        RadioButton radMed = findViewById(R.id.radioMedium);
+        RadioButton radHigh = findViewById(R.id.radioHigh);
 
         editSubject.setText(currentNote.getNoteSubject());
         editMessage.setText(currentNote.getNoteMessage());
 
-        //Need Radio to Save Status
+        if (currentNote.getNotePriority().equalsIgnoreCase("Low")) {
+            radLow.setChecked(true);
+        }
+       else if (currentNote.getNotePriority().equalsIgnoreCase("Medium")) {
+           radMed.setChecked(true);
+       }
+       else {
+           radHigh.setChecked(true);
+        }
+
     }
 
     private void saveButton() {
@@ -80,10 +92,12 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     ds.open();
                     if (currentNote.getNoteID() == -1) {
-                        wasSuccessful = ds.insertNote(currentNote);
+
                         Long datetime = System.currentTimeMillis();
                         Timestamp timestamp = new Timestamp(datetime);
-                        currentNote.setTimestamp(timestamp);
+                        currentNote.setTimestamp(timestamp.toString());
+                        wasSuccessful = ds.insertNote(currentNote);
+
                     }
                     else {
                         wasSuccessful = ds.updateNote(currentNote);
