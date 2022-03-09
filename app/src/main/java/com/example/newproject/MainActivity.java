@@ -32,22 +32,22 @@ public class MainActivity extends AppCompatActivity {
         initToggleButton();
         setForEditing(false);
 
-        currentNote = new Note();
-
-       /* Bundle extras = getIntent().getExtras();
+        Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            initNote(extras.getInt("noteId"));
+
+            initNote(extras.getInt("noteID"));
         }
         else {
             currentNote = new Note();
-        }*/
+        }
+
         initTextChangedEvents();
         initPriorityChanged();
         saveButton();
 
     }
 
-   /* private void initNote (int id) {
+   private void initNote (int id) {
         NoteDataSource ds = new NoteDataSource(MainActivity.this);
         try {
             ds.open();
@@ -60,7 +60,12 @@ public class MainActivity extends AppCompatActivity {
 
         EditText editSubject = findViewById(R.id.subField);
         EditText editMessage = findViewById(R.id.noteField);
-    }*/
+
+        editSubject.setText(currentNote.getNoteSubject());
+        editMessage.setText(currentNote.getNoteMessage());
+
+        //Need Radio to Save Status
+    }
 
     private void saveButton() {
         Button saveButton = findViewById(R.id.butttonSave);

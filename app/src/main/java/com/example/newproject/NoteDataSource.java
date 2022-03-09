@@ -28,7 +28,7 @@ public class NoteDataSource {
 
     public Note getSpecificNote(int noteId){
         Note note = new Note();
-        String query = "SELECT * FROM contact WHERE _id=" + noteId;
+        String query = "SELECT * FROM notes WHERE _id=" + noteId;
         Cursor cursor = database.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {

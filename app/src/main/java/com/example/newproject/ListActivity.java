@@ -20,7 +20,7 @@ public class ListActivity extends AppCompatActivity {
     private final View.OnClickListener onItemClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder )view.getTag();
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
             int position = viewHolder.getAdapterPosition();
             int noteId = notes.get(position).getNoteID();
             Intent intent = new Intent(ListActivity.this, MainActivity.class);
@@ -39,7 +39,7 @@ public class ListActivity extends AppCompatActivity {
         initNoteButton();
 
         NoteDataSource ds = new NoteDataSource(this);
-        ArrayList<Note> notes;
+        //ArrayList<Note> notes;
 
         try {
 
