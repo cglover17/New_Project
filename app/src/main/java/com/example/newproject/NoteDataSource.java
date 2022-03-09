@@ -25,6 +25,26 @@ public class NoteDataSource {
         dbHelper.close();
     }
 
+
+    public Note getSpecificNote(int noteId){
+        Note note = new Note();
+        String query = "SELECT * FROM contact WHERE _id=" + noteId;
+        Cursor cursor = database.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            note.setNoteID(cursor.getInt(0));
+            note.setNoteSubject(cursor.getString(1));
+            note.setNoteMessage(cursor.getString(2));
+            note.setNotePriority(cursor.getString(3));
+
+            cursor.close();
+
+        }
+        return note;
+    }
+
+
+
     public ArrayList<Note> getNotes() {
         ArrayList<Note> notes = new ArrayList<Note>();
         try {
@@ -39,6 +59,7 @@ public class NoteDataSource {
                 newNote.setNoteSubject(cursor.getString(1));
                 newNote.setNoteMessage(cursor.getString(2));
                 newNote.setNotePriority(cursor.getString(3));
+
                 notes.add(newNote);
                 cursor.moveToNext();
 

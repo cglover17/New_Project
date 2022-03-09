@@ -17,10 +17,10 @@ public class ListActivity extends AppCompatActivity {
 
     ArrayList<Note> notes;
 
-    private View.OnClickListener onItemClickListener = new View.OnClickListener() {
+    private final View.OnClickListener onItemClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder )view.getTag();
             int position = viewHolder.getAdapterPosition();
             int noteId = notes.get(position).getNoteID();
             Intent intent = new Intent(ListActivity.this, MainActivity.class);
@@ -46,7 +46,6 @@ public class ListActivity extends AppCompatActivity {
             ds.open();
             notes = ds.getNotes();
             ds.close();
-
             RecyclerView noteList = findViewById(R.id.rvNotes);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
             noteList.setLayoutManager(layoutManager);

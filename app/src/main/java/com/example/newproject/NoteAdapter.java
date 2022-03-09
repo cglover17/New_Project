@@ -16,22 +16,17 @@ public class NoteAdapter extends RecyclerView.Adapter{
     private ArrayList<Note> noteData;
     private View.OnClickListener mOnItemClickListener;
 
-    private boolean isLow;
-    private boolean isMedium;
-
     public class ContactViewHolder extends RecyclerView.ViewHolder{
+
         public TextView textSubject;
-        public TextView textLowPriority;
-        public TextView textMediumPriority;
-        public TextView textHighPriority;
+        public TextView textPriority;
         public Button deleteButton;
-        public ContactViewHolder(@NonNull View itemView){
+
+        public ContactViewHolder (@NonNull View itemView){
 
             super(itemView);
             textSubject = itemView.findViewById(R.id.textSubject);
-            textLowPriority= itemView.findViewById(R.id.textLow);
-            textMediumPriority= itemView.findViewById(R.id.textMed);
-            textHighPriority= itemView.findViewById(R.id.textHigh);
+            textPriority= itemView.findViewById(R.id.textLow);
             deleteButton= itemView.findViewById(R.id.deleteButton);
             itemView.setTag(this);
             itemView.setOnClickListener(mOnItemClickListener);
@@ -39,16 +34,10 @@ public class NoteAdapter extends RecyclerView.Adapter{
         public TextView getTextName(){
             return textSubject;
         }
-        public TextView getTextLow(){
-            return textLowPriority;
+        public TextView getTextPriority(){
+            return textPriority;
         }
-        public TextView getTextMed(){
-            return textMediumPriority;
-        }
-        public TextView getTextHigh(){
-            return textHighPriority;
-        }
-        public Button getDeleteButton(){
+        public Button getDeleteButton() {
             return deleteButton;
         }
     }
@@ -70,33 +59,9 @@ public class NoteAdapter extends RecyclerView.Adapter{
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-    ContactViewHolder cvh = (ContactViewHolder) holder;
-    cvh.getTextName().setText(noteData.get(position).getNoteSubject());
-        if (isLow) {
-        cvh.getTextLow().setVisibility(View.VISIBLE);
-      //  cvh.getTextMed().setVisibility(View.INVISIBLE);
-      //  cvh.getTextHigh().setVisibility(View.INVISIBLE);
-
-        }
-        else if (isMedium) {
-            //cvh.getTextLow().setVisibility(View.INVISIBLE);
-            cvh.getTextMed().setVisibility(View.VISIBLE);
-           // cvh.getTextHigh().setVisibility(View.INVISIBLE);
-     }
-        else {
-
-          //  cvh.getTextLow().setVisibility(View.INVISIBLE);
-         //   cvh.getTextMed().setVisibility(View.INVISIBLE);
-            cvh.getTextHigh().setVisibility(View.VISIBLE);     }
-
-    }
-
-    public void setPriority3(boolean b) {
-        isLow = b;
-    }
-
-    public void setPriority2(boolean b) {
-        isMedium = b;
+        ContactViewHolder cvh = (ContactViewHolder) holder;
+        cvh.getTextName().setText(noteData.get(position).getNoteSubject());
+        cvh.getTextPriority().setText(noteData.get(position).getNotePriority());
     }
 
     @Override

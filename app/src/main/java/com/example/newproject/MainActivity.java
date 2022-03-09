@@ -2,6 +2,7 @@ package com.example.newproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,12 +13,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class MainActivity extends AppCompatActivity {
 
     private Note currentNote;
-    private NoteAdapter noteAdapter;
+    //private NoteAdapter noteAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +33,34 @@ public class MainActivity extends AppCompatActivity {
         setForEditing(false);
 
         currentNote = new Note();
+
+       /* Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            initNote(extras.getInt("noteId"));
+        }
+        else {
+            currentNote = new Note();
+        }*/
         initTextChangedEvents();
         initPriorityChanged();
         saveButton();
 
     }
+
+   /* private void initNote (int id) {
+        NoteDataSource ds = new NoteDataSource(MainActivity.this);
+        try {
+            ds.open();
+            currentNote = ds.getSpecificNote(id);
+            ds.close();
+        }
+        catch (Exception e) {
+            Toast.makeText(this, "Load Contact Failed", Toast.LENGTH_LONG).show();
+        }
+
+        EditText editSubject = findViewById(R.id.subField);
+        EditText editMessage = findViewById(R.id.noteField);
+    }*/
 
     private void saveButton() {
         Button saveButton = findViewById(R.id.butttonSave);
@@ -58,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 catch (Exception e) {
                     wasSuccessful = false;
                 }
+
                 if (wasSuccessful) {
                     ToggleButton editToggle = findViewById(R.id.toggleButtonEdit);
                     editToggle.toggle();
@@ -116,28 +142,32 @@ public class MainActivity extends AppCompatActivity {
 
         RadioGroup rgPriority = findViewById(R.id.radPriority);
         rgPriority.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 RadioButton rbLow = findViewById(R.id.radioLow);
                 RadioButton rbMedium = findViewById(R.id.radioMedium);
 
-
                 if (rbLow.isChecked()) {
                     currentNote.setNotePriority(lowPriority);
-                    Boolean status = rbLow.isChecked();
-                    noteAdapter.setPriority3(status);
+
+                    //Boolean status = rbLow.isChecked();
+                    //noteAdapter.setPriority3(status);
                 }
                else if (rbMedium.isChecked()) {
                     currentNote.setNotePriority(medPriority);
-                    Boolean status = rbMedium.isChecked();
-                    noteAdapter.setPriority2(status);
+
+                    //Boolean status = rbMedium.isChecked();
+                    //noteAdapter.setPriority2(status);
                 }
                else {
                    currentNote.setNotePriority(highPriority);
+
                 }
             }
         });
     }
+
 
     private void initNoteButton() {
         ImageButton ibNote = findViewById(R.id.imageButtonNote);
