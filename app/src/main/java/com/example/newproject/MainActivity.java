@@ -71,10 +71,10 @@ public class MainActivity extends AppCompatActivity {
 
         editSubject.setText(currentNote.getNoteSubject());
         editMessage.setText(currentNote.getNoteMessage());
-        if (currentNote.getNotePriority().equalsIgnoreCase("Low")) {
+        if (currentNote.getNotePriority().equalsIgnoreCase("C_Low")) {
             radLow.setChecked(true);
         }
-       else if (currentNote.getNotePriority().equalsIgnoreCase("Medium")) {
+       else if (currentNote.getNotePriority().equalsIgnoreCase("B_Medium")) {
            radMed.setChecked(true);
        }
        else {
@@ -164,11 +164,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+//We need to sort the Priorities based on the STRING, so this will be stored and we will sort based on these Strings
     private void initPriorityChanged() {
-        String lowPriority = "Low";
-        String medPriority = "Medium";
-        String highPriority = "High";
+        String lowPriority = "C_Low";
+        String medPriority = "B_Medium";
+        String highPriority = "A_High";
 
         RadioGroup rgPriority = findViewById(R.id.radPriority);
         rgPriority.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -180,19 +180,12 @@ public class MainActivity extends AppCompatActivity {
 
                 if (rbLow.isChecked()) {
                     currentNote.setNotePriority(lowPriority);
-
-                    //Boolean status = rbLow.isChecked();
-                    //noteAdapter.setPriority3(status);
                 }
                else if (rbMedium.isChecked()) {
                     currentNote.setNotePriority(medPriority);
-
-                    //Boolean status = rbMedium.isChecked();
-                    //noteAdapter.setPriority2(status);
                 }
                else {
                    currentNote.setNotePriority(highPriority);
-
                 }
             }
         });

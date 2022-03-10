@@ -73,7 +73,17 @@ public class NoteDataSource {
                 newNote.setNoteID(cursor.getInt(0));
                 newNote.setNoteSubject(cursor.getString(1));
                 newNote.setNoteMessage(cursor.getString(2));
-                newNote.setNotePriority(cursor.getString(3));
+               // newNote.setNotePriority(cursor.getString(3));
+
+                if (cursor.getString(3).equals("C_Low")) {
+                    newNote.setNotePriority("C_Low");
+                }
+                else if (cursor.getString(3).equals("B_Medium")) {
+                    newNote.setNotePriority("B_Medium");
+                }
+                else {
+                    newNote.setNotePriority("A_High");
+                }
                 newNote.setTimestamp(Timestamp.valueOf(cursor.getString(4)));
 
                 notes.add(newNote);

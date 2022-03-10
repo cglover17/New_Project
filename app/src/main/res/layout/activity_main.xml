@@ -86,11 +86,11 @@
 
     <EditText
         android:id="@+id/subField"
-        android:layout_width="179dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="40dp"
+        android:layout_width="358dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="44dp"
         android:layout_marginTop="16dp"
-        android:ems="10"
+        android:ems="12"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/subText"
@@ -108,11 +108,11 @@
 
     <EditText
         android:id="@+id/noteField"
-        android:layout_width="275dp"
-        android:layout_height="51dp"
+        android:layout_width="351dp"
+        android:layout_height="46dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="16dp"
-        android:ems="10"
+        android:ems="12"
         android:inputType="textPersonName"
         android:text=" "
         app:layout_constraintStart_toStartOf="parent"

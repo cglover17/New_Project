@@ -1,6 +1,7 @@
 package com.example.newproject;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ public class NoteAdapter extends RecyclerView.Adapter{
     private View.OnClickListener mOnItemClickListener;
     private boolean isDeleting;
     private Context parentContext;
+    private String low = "Low";
+    private String medium ="Medium";
 
     public class ContactViewHolder extends RecyclerView.ViewHolder{
 
@@ -46,6 +49,7 @@ public class NoteAdapter extends RecyclerView.Adapter{
         }
     }
 
+
     public NoteAdapter (ArrayList<Note> arrayList, Context context) {
         noteData = arrayList;
         parentContext = context;
@@ -63,11 +67,31 @@ public class NoteAdapter extends RecyclerView.Adapter{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         ContactViewHolder cvh = (ContactViewHolder) holder;
         cvh.getTextName().setText(noteData.get(position).getNoteSubject());
-        cvh.getTextPriority().setText(noteData.get(position).getNotePriority());
+       // cvh.getTextPriority().setText(noteData.get(position).getNotePriority());
 
+       try {
+           String priority = noteData.get(position).getNotePriority();
+
+           if (priority.equalsIgnoreCase("A_High")) {
+               cvh.textPriority.setText("High");
+               cvh.textPriority.setTextColor(Color.RED);
+           }
+          else if (priority.equalsIgnoreCase("B_Medium")) {
+               cvh.textPriority.setText("Medium");
+               cvh.textPriority.setTextColor(Color.YELLOW);
+           }
+          else {
+               cvh.textPriority.setText("Low");
+               cvh.textPriority.setTextColor(Color.GREEN);
+           }
+       }
+        catch(Exception e) {
+
+        }
+       
         if (isDeleting) {
             cvh.getDeleteButton().setVisibility(View.VISIBLE);
             cvh.getDeleteButton().setOnClickListener(new View.OnClickListener() {
